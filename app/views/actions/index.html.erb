@@ -1,1 +1,9 @@
 <h1>Action Items</h1>
+
+<ul>
+  <% @actions.each do |action| %>
+    <li>
+      <%= action.description %>
+    </li>
+  <% end %>
+</ul>
