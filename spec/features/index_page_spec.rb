@@ -7,7 +7,9 @@ feature 'main page' do
     expect(page).to have_content('Tasks')
   end
 
-  scenario 'link to create a new task' do
+
+
+  scenario 'link takes user to create new tasks page' do
     visit('/tasks')
     click_on('Add New Task')
 
