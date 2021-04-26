@@ -6,4 +6,11 @@ feature 'main page' do
 
     expect(page).to have_content('Tasks')
   end
+
+  scenario 'link to create a new task' do
+    visit('/tasks')
+    click_on('Add New Task')
+
+    expect(page).to have_text('Add a New Task')
+  end
 end
