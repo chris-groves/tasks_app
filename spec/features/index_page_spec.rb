@@ -2,15 +2,8 @@ require 'rails_helper'
 
 feature 'main page' do
   scenario 'heading' do
-    visit('/actions')
+    visit('/tasks')
 
-    expect(page).to have_content('Action Items')
-  end
-
-  scenario 'heading' do
-    action = Action.create(description: "Read a book")
-    visit('/actions')
-
-    expect(page).to have_content('Read a book')
+    expect(page).to have_content('Tasks')
   end
 end
