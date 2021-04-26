@@ -1,3 +1,5 @@
+<% require './lib/feature' %>
+
 <h1>Tasks</h1>
 
 <ul>
@@ -8,4 +10,6 @@
   <% end %>
 </ul>
 
-<%= link_to 'Add New Task', tasks_new_path %>
+<% if Feature.enabled?("new_tasks_link") %>
+  <%= link_to 'Add New Task', tasks_new_path %>
+<% end %>
