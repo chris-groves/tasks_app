@@ -10,6 +10,5 @@
   <% end %>
 </ul>
 
-<% if Feature.enabled?("new_tasks_link") %>
-  <%= link_to 'Add New Task', tasks_new_path %>
-<% end %>
+
+<%= link_to 'Add New Task', tasks_new_path %>

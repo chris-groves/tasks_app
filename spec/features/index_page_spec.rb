@@ -7,11 +7,10 @@ feature 'main page' do
     expect(page).to have_content('Tasks')
   end
 
-  scenario 'link to create new tasks page has been disabled' do
-    FeatureFlag.create(name: "new_tasks_link", enabled: false)
-
+  scenario 'link to create new tasks page' do
     visit('/tasks')
+    click_on('Add New Task')
 
-    expect(page).to_not have_link('Add New Task')
+    expect(page).to have_content('Add a New Task')
   end
 end
