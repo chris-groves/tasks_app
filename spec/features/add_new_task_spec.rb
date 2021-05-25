@@ -8,4 +8,11 @@ feature 'new task' do
 
     expect(page).to have_content('Read a book')
   end
+
+  scenario 'link to index page' do
+    visit('/tasks/new')
+    click_on('Index Page')
+
+    expect(page).to have_content('Tasks')
+  end
 end
