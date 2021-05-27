@@ -1,14 +1,5 @@
 <h1>Add a New Task</h1>
 
-<%= form_with model: @task do |form| %>
-  <div>
-    <%= form.label :description %><br>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.submit "Create Task" %>
-  </div>
-<% end %>
+<%= render 'form', task: @task %>
 
 <%= link_to 'Index Page', tasks_path %>

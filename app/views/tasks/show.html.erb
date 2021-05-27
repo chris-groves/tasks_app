@@ -2,4 +2,5 @@
 
 <ul>
   <li><%= link_to 'Delete', "/tasks/#{@task.id}", method: :delete, data: { confirm: "Are you sure?" } %></li>
+  <li><%= link_to "Edit", "/tasks/#{@task.id}/edit" %></li>
 </ul>
