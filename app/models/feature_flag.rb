@@ -1,2 +1,0 @@
-class FeatureFlag < ApplicationRecord
-end
