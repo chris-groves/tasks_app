@@ -1,19 +1,19 @@
 require "rails_helper"
 
 feature "show page" do
+  let(:task_on_page) { TaskOnPage.new }
+  
   scenario "view an individual task" do
-    visit("/tasks/new")
-    fill_in("Description", with: "Read a book")
-    click_on("Create Task")
+    task_on_page.create
+
     click_on("Read a book")
 
     expect(page).to have_content("Read a book")
   end
 
   scenario "delete a task" do
-    visit("/tasks/new")
-    fill_in("Description", with: "Read a book")
-    click_on("Create Task")
+    task_on_page.create
+
     click_on("Read a book")
     click_on("Delete")
 
