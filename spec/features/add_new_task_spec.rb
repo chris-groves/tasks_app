@@ -11,7 +11,6 @@ feature "new task" do
 
   scenario "fail to add a new task item" do
     visit("/tasks/new")
-    # fill_in("Description", with: "Read a book")
     click_on("Create Task")
 
     expect(page).to have_content("Description can't be blank")
