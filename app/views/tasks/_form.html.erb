@@ -2,6 +2,9 @@
   <div>
     <%= form.label :description %><br>
     <%= form.text_field :description %>
+    <% @task.errors.full_messages_for(:description).each do |task| %>
+      <div><%= task %></div>
+      <% end %>
   </div>
 
   <div>
