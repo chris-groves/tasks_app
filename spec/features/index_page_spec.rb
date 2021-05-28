@@ -1,16 +1,16 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'main page' do
-  scenario 'heading' do
-    visit('/tasks')
+feature "main page" do
+  scenario "heading" do
+    visit("/tasks")
 
-    expect(page).to have_content('Tasks')
+    expect(page).to have_content("Tasks")
   end
 
-  scenario 'link to create new tasks page' do
-    visit('/tasks')
-    click_on('Add New Task')
+  scenario "link to create new tasks page" do
+    visit("/tasks")
+    click_on("Add New Task")
 
-    expect(page).to have_content('Add a New Task')
+    expect(page).to have_content("Add a New Task")
   end
 end
