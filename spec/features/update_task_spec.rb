@@ -12,4 +12,16 @@ feature "update task" do
 
     expect(page).to have_content("Read")
   end
+
+  scenario "fail to update a task" do
+    visit("/tasks/new")
+    fill_in("Description", with: "Read a book")
+    click_on("Create Task")
+    click_on("Read a book")
+    click_on("Edit")
+    fill_in("Description", with: "")
+    click_on("Update Task")
+
+    expect(page).to have_content("Description can't be blank")
+  end
 end
