@@ -1,6 +1,20 @@
 require "rails_helper"
 
 describe TasksController, type: :controller do
+  let(:task) { Task.create(description: "Eat") }
+
+  describe "GET index" do
+    it "renders :index template" do
+      get :index
+      expect(response).to render_template(:index)
+    end
+
+    it "renders all tasks to the template" do
+      get :index
+      expect(assigns(:tasks)).to eq([task])
+    end
+  end
+
   describe "GET new" do
     it "renders :new template" do
       get :new
@@ -14,8 +28,6 @@ describe TasksController, type: :controller do
   end
 
   describe "GET show" do
-    let(:task) { Task.create(description: "Eat") }
-
     it "renders :show template" do
       get :show, params: { id: task.id }
       expect(response).to render_template(:show)
