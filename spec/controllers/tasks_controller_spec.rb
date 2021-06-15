@@ -26,4 +26,36 @@ describe TasksController, type: :controller do
       expect(assigns(:task)).to eq(task)
     end
   end
+
+  describe "POST create" do
+    context "with valid data" do
+      let(:valid_post_request) { post :create, params: { task: { description: "Hello" } } }
+
+      it "redirects to task#show" do
+        valid_post_request
+        expect(response).to redirect_to(tasks_path)
+      end
+
+      it "creates a new Task in the database" do
+        expect {
+          valid_post_request
+        }.to change(Task, :count).by(1)
+      end
+    end
+
+    context "with invalid data" do
+      let(:invalid_post_request) { post :create, params: { task: { description: "" } } }
+
+      it "renders :new template" do
+        invalid_post_request
+        expect(response).to render_template(:new)
+      end
+
+      it "does not create a new task in the database" do
+        expect {
+          invalid_post_request
+        }.not_to change(Task, :count)
+      end
+    end
+  end
 end
