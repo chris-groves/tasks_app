@@ -70,4 +70,16 @@ describe TasksController, type: :controller do
       end
     end
   end
+
+  describe "GET edit" do
+    it "renders :edit template" do
+      get :edit, params: { id: task.id }
+      expect(response).to render_template(:edit)
+    end
+
+    it "assigns requested task to template" do
+      get :edit, params: { id: task.id }
+      expect(assigns(:task)).to eq(task)
+    end
+  end
 end
