@@ -50,6 +50,7 @@ end
 
 group :test do
   gem "capybara", ">= 3.32.2", "< 4.0"
+  gem "rails-controller-testing"
   gem "simplecov", require: false
 end
 
