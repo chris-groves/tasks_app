@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe TasksController, type: :controller do
-  let(:task) { Task.create(description: "Eat") }
+  let(:task) { FactoryBot.create(:task) }
 
   describe "GET index" do
     it "renders :index template" do
@@ -41,31 +41,31 @@ describe TasksController, type: :controller do
 
   describe "POST create" do
     context "with valid data" do
-      let(:valid_post_request) { post :create, params: { task: { description: "Hello" } } }
+      let(:valid_attributes) { FactoryBot.attributes_for(:task) }
 
       it "redirects to task#show" do
-        valid_post_request
+        post :create, params: { task: valid_attributes }
         expect(response).to redirect_to(tasks_path)
       end
 
       it "creates a new Task in the database" do
         expect {
-          valid_post_request
+          post :create, params: { task: valid_attributes }
         }.to change(Task, :count).by(1)
       end
     end
 
     context "with invalid data" do
-      let(:invalid_post_request) { post :create, params: { task: { description: "" } } }
+      let(:invalid_attributes) { FactoryBot.attributes_for(:task, description: "") }
 
       it "renders :new template" do
-        invalid_post_request
+        post :create, params: { task: invalid_attributes }
         expect(response).to render_template(:new)
       end
 
       it "does not create a new task in the database" do
         expect {
-          invalid_post_request
+          post :create, params: { task: invalid_attributes }
         }.not_to change(Task, :count)
       end
     end
