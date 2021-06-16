@@ -2,6 +2,8 @@ require "rails_helper"
 
 describe TasksController, type: :controller do
   let(:task) { FactoryBot.create(:task) }
+  let(:valid_attributes) { FactoryBot.attributes_for(:task) }
+  let(:invalid_attributes) { FactoryBot.attributes_for(:task, description: "") }
 
   describe "GET index" do
     it "renders :index template" do
@@ -41,8 +43,6 @@ describe TasksController, type: :controller do
 
   describe "POST create" do
     context "with valid data" do
-      let(:valid_attributes) { FactoryBot.attributes_for(:task) }
-
       it "redirects to task#show" do
         post :create, params: { task: valid_attributes }
         expect(response).to redirect_to(tasks_path)
@@ -56,8 +56,6 @@ describe TasksController, type: :controller do
     end
 
     context "with invalid data" do
-      let(:invalid_attributes) { FactoryBot.attributes_for(:task, description: "") }
-
       it "renders :new template" do
         post :create, params: { task: invalid_attributes }
         expect(response).to render_template(:new)
@@ -80,6 +78,36 @@ describe TasksController, type: :controller do
     it "assigns requested task to template" do
       get :edit, params: { id: task.id }
       expect(assigns(:task)).to eq(task)
+    end
+  end
+
+  describe "PATCH update" do
+    let(:valid_update_attributes) { FactoryBot.attributes_for(:task, description: "Eat") }
+
+    context "with valid data" do
+      it "redirects to tasks#show" do
+        patch :update, params: { id: task.id, task: valid_attributes }
+        expect(response).to redirect_to(task_path)
+      end
+
+      it "updates task in the database" do
+        patch :update, params: { id: task.id, task: valid_update_attributes }
+        task.reload
+        expect(task.description).to eq("Eat")
+      end
+    end
+
+    context "with invalid data" do
+      it "renders :edit template" do
+        patch :update, params: { id: task.id, task: invalid_attributes }
+        expect(response).to render_template(:edit)
+      end
+
+      it "does not update task in the database" do
+        patch :update, params: { id: task.id, task: invalid_attributes }
+        task.reload
+        expect(task.description).to eq("Read a book")
+      end
     end
   end
 end
