@@ -110,4 +110,19 @@ describe TasksController, type: :controller do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    before { task.save! }
+
+    it "redirects to tasks#index" do
+      delete :destroy, params: { id: task.id }
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "deletes task from the database" do
+      expect {
+         delete :destroy, params: { id: task.id }
+       }.to change(Task, :count).by(-1)
+    end
+  end
 end
