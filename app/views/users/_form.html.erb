@@ -1,0 +1,16 @@
+<%= form_with model: user do |form| %>
+  <div>
+    <%= form.label :email %><br>
+    <%= form.text_field :email %><br>
+    
+    <%= form.label :password %><br>
+    <%= form.text_field :password %><br>
+
+    <%= form.label :confirm_password %><br>
+    <%= form.text_field :confirm_password  %><br>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
