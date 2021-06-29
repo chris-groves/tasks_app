@@ -1,16 +1,19 @@
 <%= form_with model: user do |form| %>
   <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %><br>
+
     <%= form.label :email %><br>
     <%= form.text_field :email %><br>
-    
+
     <%= form.label :password %><br>
     <%= form.text_field :password %><br>
 
-    <%= form.label :confirm_password %><br>
-    <%= form.text_field :confirm_password  %><br>
+    <%= form.label :password_confirmation %><br>
+    <%= form.text_field :password_confirmation  %><br>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Sign Up" %>
   </div>
 <% end %>

@@ -1,5 +1,9 @@
 <h1>Tasks</h1>
 
+<% flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, class: name %>
+<% end %>
+
 <ul>
   <% @tasks.each do |task| %>
     <li>
