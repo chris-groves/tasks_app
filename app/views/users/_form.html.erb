@@ -1,4 +1,5 @@
 <%= form_with model: user do |form| %>
+  <%= render 'error_messages' %>
   <div>
     <%= form.label :name %><br>
     <%= form.text_field :name %><br>
