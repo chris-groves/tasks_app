@@ -29,5 +29,64 @@ describe UsersController, type: :controller do
         }.to change(User, :count).by(1)
       end
     end
+
+    context "with invalid data" do
+      context "with invalid name" do
+        let(:invalid_name) { FactoryBot.attributes_for(:user, name: "") }
+
+        it "renders :new template" do
+          post :create, params: { user: invalid_name }
+          expect(response).to render_template(:new)
+        end
+
+        it "does not create a new user in the database" do
+          expect {
+            post :create, params: { user: invalid_name }
+          }.not_to change(User, :count)
+        end
+      end
+      context "with invalid email" do
+        let(:invalid_email) { FactoryBot.attributes_for(:user, email: "") }
+
+        it "renders :new template" do
+          post :create, params: { user: invalid_email }
+          expect(response).to render_template(:new)
+        end
+
+        it "does not create a new user in the database" do
+          expect {
+            post :create, params: { user: invalid_email }
+          }.not_to change(User, :count)
+        end
+      end
+      context "with blank password" do
+        let(:blank_password) { FactoryBot.attributes_for(:user, password: "") }
+
+        it "renders :new template" do
+          post :create, params: { user: blank_password }
+          expect(response).to render_template(:new)
+        end
+
+        it "does not create a new user in the database" do
+          expect {
+            post :create, params: { user: blank_password }
+          }.not_to change(User, :count)
+        end
+      end
+      context "with short password" do
+        let(:short_password) { FactoryBot.attributes_for(:user, password: "foo") }
+
+        it "renders :new template" do
+          post :create, params: { user: short_password }
+          expect(response).to render_template(:new)
+        end
+
+        it "does not create a new user in the database" do
+          expect {
+            post :create, params: { user: short_password }
+          }.not_to change(User, :count)
+        end
+      end
+    end
   end
 end
