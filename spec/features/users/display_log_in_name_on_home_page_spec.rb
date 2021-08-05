@@ -11,3 +11,17 @@ feature "Display logged in user" do
     expect(page).to have_content("Logged in as me@example.com")
   end
 end
+
+feature "Display appropriate links when no user logged in" do
+  scenario "Display log in link" do
+    visit("/")
+
+    expect(page).to have_content("Log In")
+  end
+
+  scenario "Display sign up link" do
+    visit("/")
+
+    expect(page).to have_content("Sign Up")
+  end
+end
