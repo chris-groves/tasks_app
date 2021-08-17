@@ -13,8 +13,9 @@
   <% end %>
 </ul>
 
-
-<%= link_to 'Add New Task', new_task_path %>
+<% if logged_in? %>
+  <%= link_to 'Add New Task', new_task_path %>
+<% end %>
 
 <% if current_user %>
   Logged in as <%= current_user.email %>
