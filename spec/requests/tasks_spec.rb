@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Tasks", type: :request do
+  let(:user) { FactoryBot.create(:user) }
+
   describe "GET /tasks" do
     it "returns http success" do
       get "/tasks"
@@ -9,6 +11,10 @@ RSpec.describe "Tasks", type: :request do
   end
 
   describe "GET /new" do
+    before do
+      post "/sessions", params: { session: { email: user.email, password: "foobar" } }
+    end
+
     it "returns http success" do
       get "/tasks/new"
       expect(response).to have_http_status(:success)

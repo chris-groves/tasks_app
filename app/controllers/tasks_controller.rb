@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :authorize, only: [:new]
+
   def index
     @tasks = Task.all
   end

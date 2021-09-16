@@ -4,6 +4,7 @@ describe TasksController, type: :controller do
   let(:task) { FactoryBot.create(:task) }
   let(:valid_attributes) { FactoryBot.attributes_for(:task) }
   let(:invalid_attributes) { FactoryBot.attributes_for(:task, description: "") }
+  let(:user) { FactoryBot.create(:user) }
 
   describe "GET index" do
     it "renders :index template" do
@@ -18,14 +19,27 @@ describe TasksController, type: :controller do
   end
 
   describe "GET new" do
-    it "renders :new template" do
-      get :new
-      expect(response).to render_template(:new)
+    context "when logged in" do
+      before do
+        session[:user_id] = user.id
+      end
+
+      it "renders :new template" do
+        get :new
+        expect(response).to render_template(:new)
+      end
+
+      it "assigns new Task to @task" do
+        get :new
+        expect(assigns(:task)).to be_a_new(Task)
+      end
     end
 
-    it "assigns new Task to @task" do
-      get :new
-      expect(assigns(:task)).to be_a_new(Task)
+    context "when logged out" do
+      it "redirects to the log in page" do
+        get :new
+        expect(subject).to redirect_to(new_session_path)
+      end
     end
   end
 

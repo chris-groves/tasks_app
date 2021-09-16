@@ -10,8 +10,14 @@ feature "Log in to create tasks" do
     expect(page).to have_content("Add New Task")
   end
 
-  scenario "Cannot create a new task when logged out" do
+  scenario "Cannot view the 'Add New Task' button when logged out" do
     visit("/")
+
+    expect(page).not_to have_content("Add New Task")
+  end
+
+  scenario "Redirected to log in page when visiting 'tasks/new' when logged out" do
+    visit("/tasks/new")
 
     expect(page).not_to have_content("Add New Task")
   end
