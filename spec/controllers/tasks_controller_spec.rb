@@ -1,28 +1,30 @@
 require "rails_helper"
 
 describe TasksController, type: :controller do
+  let(:user) { FactoryBot.create(:user) }
+  let(:log_in) { session[:user_id] = user.id }
   let(:task) { FactoryBot.create(:task) }
   let(:valid_attributes) { FactoryBot.attributes_for(:task) }
   let(:invalid_attributes) { FactoryBot.attributes_for(:task, description: "") }
-  let(:user) { FactoryBot.create(:user) }
 
   describe "GET index" do
-    it "renders :index template" do
-      get :index
-      expect(response).to render_template(:index)
-    end
+    context "when logged in" do
 
-    it "renders all tasks to the template" do
-      get :index
-      expect(assigns(:tasks)).to eq([task])
+      it "renders :index template" do
+        get :index
+        expect(response).to render_template(:index)
+      end
+
+      it "renders all tasks to the template" do
+        get :index
+        expect(assigns(:tasks)).to eq([task])
+      end
     end
   end
 
   describe "GET new" do
     context "when logged in" do
-      before do
-        session[:user_id] = user.id
-      end
+      before { log_in }
 
       it "renders :new template" do
         get :new
@@ -58,11 +60,14 @@ describe TasksController, type: :controller do
   describe "POST create" do
     context "with valid data" do
       it "redirects to task#show" do
+        log_in
         post :create, params: { task: valid_attributes }
+
         expect(response).to redirect_to(tasks_path)
       end
 
       it "creates a new Task in the database" do
+        log_in
         expect {
           post :create, params: { task: valid_attributes }
         }.to change(Task, :count).by(1)
@@ -71,11 +76,13 @@ describe TasksController, type: :controller do
 
     context "with invalid data" do
       it "renders :new template" do
+        log_in
         post :create, params: { task: invalid_attributes }
         expect(response).to render_template(:new)
       end
 
       it "does not create a new task in the database" do
+        log_in
         expect {
           post :create, params: { task: invalid_attributes }
         }.not_to change(Task, :count)
