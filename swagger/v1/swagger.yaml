@@ -1,0 +1,33 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/tasks":
+    get:
+      summary: retrieves all tasks
+      tags:
+      - tasks
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                id: 1
+                description: Read a book
+              schema:
+                type: array
+                properties:
+                  id:
+                    type: integer
+                  description:
+                    type: string
+                required:
+                - description
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
